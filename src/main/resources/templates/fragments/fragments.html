@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	<!-- Fictitious tag -->
+		<th:block th:fragment="head"  >
+			<title>Tickets Platform</title>	 
+			<!-- Bootstrap CSS -->
+			<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}"/>	
+		</th:block>
+	</head>
+	<body>
+		<th:block th:fragment="scripts">
+			<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+		</th:block>
+		
+		<!-- Unique alert snippet -->
+		<div class="alert alert-dismissible fade show" role="alert"
+				th:fragment="alert(type, message)"
+				th:classappend="'alert-' + ${type}">
+			<span th:text="${message}"></span>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		
+		<footer th:fragment="footer"><!-- Footer content --></footer>
+	</body>
+</html>
