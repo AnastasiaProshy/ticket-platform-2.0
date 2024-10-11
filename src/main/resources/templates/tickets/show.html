@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/fragments :: head}"></head>
+<body>
+	<!-- Header section containing the navigation bar -->
+	<header th:insert="~{fragments/navbar :: navbar('tickets/show')}"></header>		
+	<main class="container">			
+		<div class="row">
+			<div class="col-12">
+				<th:block th:object="${ticket}">
+					<!-- Ticket Title -->
+					<h2 class="py-4 mb-2 text-center">Ticket <strong>'[[*{title}]]'</strong></h2>
+					
+					<!-- Alert -->
+					<th:block th:if="${messageAlert != null}">
+					    <div th:replace="~{fragments/fragments :: alert(${typeAlert}, ${messageAlert})}"></div>
+					</th:block>
+								
+					<!-- Dettaglio del ticket -->
+					<div class="row  justify-content-center">
+						<div class="col-lg-6 col-md-8">
+							<div class="card mb-4">
+							  <div class="card-header text-center"> Single ticket detail <strong>'[[*{status}]]'</strong>
+							
+								<form th:action="@{/tickets/updateStatus/{id}(id=${ticket.id})}" method="POST" class="d-flex">
+									<div class="mt-3 mb-3 d-flex gap-2 col-6 mx-auto pt-2">
+										<label for="status" class="form-label"></label>
+										<select name="status" class="form-select" id="status">
+											<option th:value="'To Do'" th:selected="${ticket.status == 'To Do'}">To Do</option>
+											<option th:value="'In Progress'" th:selected="${ticket.status == 'In Progress'}">In Progress</option>
+											<option th:value="'Completed'" th:selected="${ticket.status == 'Completed'}">Completed</option>
+										</select>
+										<button type="submit" class="btn btn-primary">Update</button>
+									</div>									
+								</form>	
+
+							
+							
+							
+							</div>
+							  <div class="card-body">
+							    <h5 class="card-title">Operator:</h5>
+								<p class="card-text">[[*{description}]]</p>
+								
+								<ul>
+									<li th:each="note: *{notes}">
+										<p>
+											 Date il [[${note.createdDate}]]
+											 Note: [[${note.content}]]
+										</p>
+									</li>
+								</ul>
+								
+								<!-- Dropdown to change ticket status 
+								<div class="d-grid gap-2 col-6 mx-auto pt-2"></div>	-->								
+									
+								<div class="mt-5 mb-3 d-flex justify-content-between">
+									<a th:href="@{/tickets}" class="btn btn-primary">Back</a>	
+									<a th:href="@{/tickets/{id}/notes/create(id=${ticket.id})}" class="btn btn-warning">Note</a>	
+								</div>						
+							  </div>
+							</div>
+						</div>								
+					</div>	
+					
+
+                   </div>				
+				</th:block>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="~{fragments/fragments :: footer}"></footer>	
+	<th:block th:replace="~{fragments/fragments :: scripts}"></th:block>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/fragments :: head}"></head>
+<body>
+	<!-- Header section containing the navigation bar -->
+	<header th:insert="~{fragments/navbar :: navbar('notes/create')}"></header>		
+	<main class="container">			
+		<div class="row">
+			<div class="col-12">
+				<div class="py-5 text-center">
+					<h4><strong>Creating a new note</strong> </h4>	
+					<p>For ticket '[[${note.ticket.title}]]'</p>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-md-6 col-lg-4">
+						<!-- Form -->
+						<form id="note-form" th:action="@{/notes/create}" method="POST" th:object="${note}">	
+							
+							<!--  Ticket for note is note.ticket personal, not generic ticket of ticket object
+								  I create ticket ID available -->
+							<input type="hidden" th:field="*{ticket}" id="ticket">
+																			
+							<!-- Date -->
+							<div class="mb-3">
+							  <label for="createdDate" class="form-label">Date:</label>
+							  <input type="date" class="form-control" id="createdDate" placeholder="" th:field="*{createdDate}" th:errorClass="is-invalid">
+							  
+							  <div th:if="${#fields.hasErrors('createdDate')}" class="invalid-feedback">
+								<ul>
+									<li th:each="err : ${#fields.errors('createdDate')}" th:text="${err}"></li>
+								</ul>
+							  </div>									  
+							</div>
+							<!-- Text -->
+							<div class="mb-3">
+							  <label for="content" class="form-label">Content</label>
+							  <textarea class="form-control" id="content" rows="4" placeholder="Type in some info" 
+							   			th:field="*{content}" th:errorClass="is-invalid" aria-describedby="contentHelp"></textarea>
+								<div th:if="${#fields.hasErrors('content')}" class="invalid-feedback">
+									<ul>
+										<li th:each="err : ${#fields.errors('content')}" th:text="${err}"></li>
+									</ul>
+								</div>
+								<div id="contentHelp" class="form-text">Provide details about the note</div>										 
+							</div>
+							<!-- Buttons -->
+							<div class="mb-3 d-flex justify-content-between">
+								<input type="submit" class="btn btn-primary" value="Create">
+								<input type="reset" class="btn btn-warning" value="Reset">
+							</div>
+							
+						</form>
+					</div>								
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="~{fragments/fragments :: footer}"></footer>	
+	<th:block th:replace="~{fragments/fragments :: scripts}"></th:block>
+</body>
+</html>
