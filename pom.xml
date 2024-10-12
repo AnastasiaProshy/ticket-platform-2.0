@@ -76,6 +76,12 @@
 		  <!--  <version>6.3.3</version> -->
 		    <scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+				
 		<!-- https://mvnrepository.com/artifact/org.webjars.bower/fontawesome -->
 		<dependency>
 		    <groupId>org.webjars.bower</groupId>

@@ -3,6 +3,9 @@ package com.java.platform.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -44,10 +47,12 @@ public class Ticket
 		@ManyToOne
 		@NotNull(message = "An agent must be assigned to the ticket")
 		@JoinColumn(name="user_id", nullable = false)
+		@JsonBackReference
 	    private User user;
 		
 		// у билета есть заметка
 		 @OneToMany(mappedBy = "ticket", cascade = { CascadeType.REMOVE })
+		 @JsonManagedReference
 		 private List<Note> notes;
 		 
 //		// создаю инт доступных заметок

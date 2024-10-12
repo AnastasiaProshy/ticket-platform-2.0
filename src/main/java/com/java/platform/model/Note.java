@@ -2,6 +2,7 @@ package com.java.platform.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -35,6 +36,7 @@ public class Note
 	// зависимая модель от билета, колонна не может быть нуль
 	@ManyToOne
 	@JoinColumn(name = "ticket_id", nullable = false)
+	@JsonBackReference
 	private Ticket ticket;
 	
 //	@ManyToOne
