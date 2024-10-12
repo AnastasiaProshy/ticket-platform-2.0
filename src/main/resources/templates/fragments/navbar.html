@@ -17,12 +17,17 @@
 								<a class="nav-link" href="#" th:href="@{/tickets}" th:classappend="${ route == 'tickets' ? 'active' : ' '}">Tickets</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="#" th:href="@{/notes}" th:classappend="${ route == 'notes' ? 'active' : ' '}">Notes</a>
+								<a class="nav-link" href="#" th:href="@{/notes}" th:classappend="${ route == 'notes' ? 'active' : ' '}" sec:authorize="hasAuthority('ADMIN')">Notes</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="#" th:href="@{/user}" th:classappend="${ route == 'user' ? 'active' : ' '}">Personal area</a>
 							</li>
 						</ul>
+						<div>
+							<a href="/logout" class="btn btn-outline-dark">Logout</a>
+							<span sec:authentication="name" class="fw-bold fs-3 ms-3"></span>
+							<span sec:authentication="principal.authorities" class="fw-bold fs-6"></span>
+						</div>
 					</div>
 				</div>
 			</nav>

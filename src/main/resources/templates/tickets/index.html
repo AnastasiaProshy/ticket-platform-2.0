@@ -12,8 +12,8 @@
 			    <div class="col-md-6 d-flex align-items-center">
 			        <form th:action="@{/tickets}" method="GET" class="w-100">
 			            <div class="input-group">
-			                <!-- Button to create a new ticket me-2(margin-end)-->
-			                <a href="/tickets/create" class="btn btn-md btn-warning me-2">Launch a new ticket</a>
+			                <!-- Button to create a new ticket me-2(margin-end) -->
+							<a href="/tickets/create" class="btn btn-md btn-warning me-2" sec:authorize="hasAuthority('ADMIN')">Launch a new ticket</a>
 			                <!-- Search input for filtering tickets -->
 			                <input name="search" type="text" class="form-control" placeholder="Type in the ticket name" th:value="${ticketSearch}">
 			                <!-- Button to submit the search -->
@@ -50,40 +50,40 @@
 						<td th:text="${ticket.status}"></td>
 						<td th:text="${ticket.title}"></td>
 						<td th:text="${ticket.description}"></td>
-						<td th:text="${ticket.user.name}"></td>
+						<td th:text="${ticket.user.username}"></td>
 						<td>
 							<!-- Buttons: Show, Edit, Note, Delete -->
 							<a class="btn btn-sm btn-success" th:href="@{/tickets/{id}(id=${ticket.id})}">Show</a>	
-							<a class="btn btn-sm btn-warning" th:href="@{/tickets/edit/{id}(id=${ticket.id})}">Edit</a>	
+							<a class="btn btn-sm btn-warning" th:href="@{/tickets/edit/{id}(id=${ticket.id})}" sec:authorize="hasAuthority('ADMIN')">Edit</a>	
 							<a class="btn btn-sm btn-primary" th:href="@{/tickets/{id}/notes/create(id=${ticket.id})}">Note</a>	
-							
-							<!-- Button trigger modal -->
-							<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ticket.id}">Delete</button>
-							<!-- Modal for confirming ticket deletion -->
-							<div class="modal fade" th:id="'delete-modal-' + ${ticket.id}" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
-							  <div class="modal-dialog modal-dialog-centered">
-							    <div class="modal-content">
-							      <div class="modal-header">
-									<!-- Title of the modal displaying the ticket title -->
-							        <h1 class="modal-title fs-5" id="delete-modal">Deleting <strong>"[[${ticket.title}]]"</strong></h1>
-							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							      </div>
-								  <!-- Confirmation message for deletion -->
-							      <div class="modal-body">
-							      	Are you sure you want to permanently delete <strong>"[[${ticket.title}]]"</strong> ticket? 
-							      </div>											  
-							      <div class="modal-footer">
-									<!-- Button to close the modal -->
-							        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-									<!-- Form for submitting the DELETE request -->							
-									<form class="d-inline-block" th:action="@{/tickets/delete/{id}(id=${ticket.id})}" method="POST">
-										<button type="submit" class="btn btn-sm btn-danger">Delete</button>											
-									</form>
-							      </div>
-							    </div>
-							  </div>
-							</div>
-							
+							<th:block sec:authorize="hasAuthority('ADMIN')">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" th:data-bs-target="'#delete-modal-' + ${ticket.id}">Delete</button>
+								<!-- Modal for confirming ticket deletion -->
+								<div class="modal fade" th:id="'delete-modal-' + ${ticket.id}" tabindex="-1" aria-labelledby="delete-modal" aria-hidden="true">
+								  <div class="modal-dialog modal-dialog-centered">
+								    <div class="modal-content">
+								      <div class="modal-header">
+										<!-- Title of the modal displaying the ticket title -->
+								        <h1 class="modal-title fs-5" id="delete-modal">Deleting <strong>"[[${ticket.title}]]"</strong></h1>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+									  <!-- Confirmation message for deletion -->
+								      <div class="modal-body">
+								      	Are you sure you want to permanently delete <strong>"[[${ticket.title}]]"</strong> ticket? 
+								      </div>											  
+								      <div class="modal-footer">
+										<!-- Button to close the modal -->
+								        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+										<!-- Form for submitting the DELETE request -->							
+										<form class="d-inline-block" th:action="@{/tickets/delete/{id}(id=${ticket.id})}" method="POST">
+											<button type="submit" class="btn btn-sm btn-danger">Delete</button>											
+										</form>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+							</th:block>							
 						</td>										
 					</tr>						
 				</tbody>

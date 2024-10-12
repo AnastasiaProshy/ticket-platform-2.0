@@ -32,7 +32,7 @@
 							        <option value="" disabled selected>Choose an agent</option>
 							        <option th:each="agent : ${agents}" 
 							                th:value="${agent.id}" 
-							                th:text="${agent.name}">Agent</option>
+							                th:text="${agent.username}">Agent</option>
 							    </select>
 								<div th:if="${#fields.hasErrors('user')}" class="invalid-feedback">
 									<ul>

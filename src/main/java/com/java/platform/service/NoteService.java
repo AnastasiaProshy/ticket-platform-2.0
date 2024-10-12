@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.java.platform.model.Note;
 import com.java.platform.repository.NoteRepository;
 
-
-@Service	// the one who @serves the controller, puts between the controller and repository, so no longer have the repository in controller but in service
+			// the one who @serves the controller, 
+@Service	// puts between the controller and repository, so no longer have the repository in controller but in service
 public class NoteService {
 	
 	private @Autowired NoteRepository noteRepository;

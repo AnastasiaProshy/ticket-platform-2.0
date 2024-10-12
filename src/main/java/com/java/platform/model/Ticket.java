@@ -41,7 +41,6 @@ public class Ticket
 		@NotNull(message = "Ticket status is required")
 		private String status; // Default value
 		
-		
 		@ManyToOne
 		@NotNull(message = "An agent must be assigned to the ticket")
 		@JoinColumn(name="user_id", nullable = false)
