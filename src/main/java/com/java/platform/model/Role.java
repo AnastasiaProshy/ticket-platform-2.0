@@ -1,16 +1,19 @@
 package com.java.platform.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role {
 	
 	@Id
@@ -18,13 +21,9 @@ public class Role {
 	private Integer id;
 	
 	@NotNull
-	@NotEmpty
-	@Column(name = "role_name", nullable = false)
-	private String type;
-	
-	//@OneToMany (mappedBy ="role") 
-	//private List<User> users;
-
+	//@NotEmpty
+	@Column(name = "name", nullable = false)
+	private String name;
 	
 	
 	public Integer getId() {
@@ -35,12 +34,14 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getType() {
-		return type;
+	public String getName() {
+		return name;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setName(String name) {
+		this.name = name;
 	}
+
+
 
 }

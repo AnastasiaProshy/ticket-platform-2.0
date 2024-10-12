@@ -11,7 +11,7 @@ public interface UserRepository extends JpaRepository <User, Integer>
 {
 	//already has all the methods to perform CRUD operations for Tickets
 	
-	public Optional<User> findByName(String name);
+	public Optional<User> findByUsername(String username);
 	
 	List<User> findByAvailableTrue();
 }

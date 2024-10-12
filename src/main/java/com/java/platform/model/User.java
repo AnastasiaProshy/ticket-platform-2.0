@@ -22,38 +22,38 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User 
 {
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@NotNull
-	@NotEmpty
+	//@NotEmpty
 	@Size(min=3,max=255)
-	@Column(name = "name", nullable = false)
-	private String name;
-//	
+	@Column(name = "username", nullable = false)
+	private String username;
+	
 //	@NotNull
 //	@NotEmpty
 //	@Size(min=4,max=255)
 //	@Column(name = "email", nullable = false)
 //	private String email;
-//	
-//	@NotNull
-//	@NotEmpty
-//	@Column(name = "password", nullable = false)
-//	private String password;
+	
+	@NotNull
+	//@NotEmpty
+	@Column(name = "password", nullable = false)
+	private String password;
 	
 	// for availability flag
 	@Column(nullable = false)
 	private Boolean available = true;
 	
 	
-//	@ManyToMany(fetch = FetchType.EAGER)
-//	private Set<Role> roles;
-//	
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Role> roles;
+	
 	
 	@OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Ticket> tickets;	// created ticket concept to connect to, so User has a ticket he is connected to 
@@ -69,13 +69,6 @@ public class User
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 //	public String getEmail() {
 //		return email;
@@ -85,13 +78,13 @@ public class User
 //		this.email = email;
 //	}
 //
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 
 	public List<Ticket> getTickets() {
@@ -109,5 +102,23 @@ public class User
 	public void setAvailable(Boolean available) {
 		this.available = available;
 	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
 
 }
