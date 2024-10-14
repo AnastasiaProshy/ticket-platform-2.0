@@ -55,13 +55,6 @@ public class Ticket
 		 @JsonManagedReference
 		 private List<Note> notes;
 		 
-//		// создаю инт доступных заметок
-//		private Integer notesAvailable;
-//		 
-//		// найти доступные записи о билетах
-//		@NotNull
-//		@Max(500)
-//		private Integer numberOfNotes;
 		
 
 		
@@ -117,14 +110,6 @@ public class Ticket
 		public void setNotes(List<Note> notes) {
 			this.notes = notes;
 		}
-
-//		public Integer getNotesAvailable() {
-//			return notesAvailable;
-//		}
-//
-//		public void setNotesAvailable(Integer notesAvailable) {
-//			this.notesAvailable = notesAvailable;
-//		}
 
 		
 }
