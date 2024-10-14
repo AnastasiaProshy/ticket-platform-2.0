@@ -58,13 +58,21 @@ public class Ticket
 		 private List<Note> notes;
 		 
 		 
-		 @ManyToMany(fetch = FetchType.EAGER)
+		 public List<Category> getCategories() {
+			return categories;
+		}
+
+		public void setCategories(List<Category> categories) {
+			this.categories = categories;
+		}
+
+		@ManyToMany(fetch = FetchType.EAGER)
 		 @JoinTable(
 			 name = "categories_ticket",
 			 joinColumns = @JoinColumn(name = "ticket_id"),
 			 inverseJoinColumns = @JoinColumn(name = "category_id")
 			 )
-		 @JsonManagedReference
+		 //@JsonManagedReference
 		 private List<Category> categories;
 
 		

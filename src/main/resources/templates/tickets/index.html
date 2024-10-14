@@ -38,6 +38,7 @@
 						<th>#</th>
 						<th>State</th>
 						<th>Title</th>
+						<th>​Inform</th>
 						<th>Description</th>
 						<th>Agent</th>
 						<th>Actions</th>
@@ -49,6 +50,7 @@
 						<td th:text="${ticket.id}"></td>
 						<td th:text="${ticket.status}"></td>
 						<td th:text="${ticket.title}"></td>
+						<td><span th:each="category : ${ticket.categories}" th:text="${category.name}"></span>
 						<td th:text="${ticket.description}"></td>
 						<td th:text="${ticket.user.username}"></td>
 						<td>

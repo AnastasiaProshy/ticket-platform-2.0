@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="~{fragments/fragments :: head}"></head>
 <body>
-	<!-- Header section containing the navigation bar -->
+	<!-- Header -->
 	<header th:insert="~{fragments/navbar :: navbar('tickets/create')}"></header>		
 	<main class="container">			
 		<div class="row">
@@ -11,7 +11,7 @@
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-4">
 						<form id="ticket-form" th:action="@{/tickets/create}" method="POST" th:object="${ticket}">
-							
+							<!-- Title -->
 							<div class="mb-3">
 							  <label for="title" class="form-label">Title</label>
 							  <input type="text" class="form-control" id="title" placeholder="Enter ticket title"
@@ -22,9 +22,8 @@
 							  	</ul>
 							  </div>
 							  <div id="titleHelp" class="form-text">Please enter a descriptive title</div>										 
-							</div>
-							
-
+							</div>							
+							<!-- Agent -->
 							<div class="form-group mb-3">
 							    <label for="agent">Choose agent</label>
 							    <select th:field="*{user}" class="form-control" required 
@@ -40,9 +39,8 @@
 									</ul>
 								</div>
 								<div id="descriptionHelp" class="form-text">The assigned agent is mandatory</div>										 
-							</div>	
-
-							
+							</div>
+							<!-- Description -->
 							<div class="mb-3">
 							  <label for="description" class="form-label">Description</label>
 							  <textarea class="form-control" id="description" rows="4" placeholder="Type in some info" 
@@ -54,8 +52,14 @@
 								</div>
 								<div id="descriptionHelp" class="form-text">Provide details about the ticket</div>										 
 							</div>
-							
-							<div class="mb-3 d-flex justify-content-between">
+							<!-- Categories -->
+							<div th:each="category : ${categories}" class="form-check mb-3" role="group" aria-label="Basic checkbox toggle button group">
+							    <input type="checkbox" class="form-check-input" autocomplete="off" 
+							           th:value="${category.id}" th:id="|category_${category.id}|" th:field="${ticket.categories}">
+							    <label class="form-check-label" th:for="|category_${category.id}|" th:text="${category.name}"></label>
+							</div>
+							<!-- Buttons -->
+							<div class="pt-4 d-flex justify-content-between">
 								<input type="submit" class="btn btn-primary" value="Create">
 								<input type="reset" class="btn btn-warning" value="Reset">
 							</div>

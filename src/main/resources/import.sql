@@ -2,7 +2,7 @@
 INSERT INTO role (id, name) VALUES (1, 'ADMIN'), (2, 'USER');
 
 -- Insert users
-INSERT INTO user (id, username, password, available) VALUES (1, 'A', '{noop}a', true), (2, 'B', '{noop}b', true), (3, 'C', '{noop}c', false);
+INSERT INTO user (id, username, password, available) VALUES (1, 'A', '{noop}a', true), (2, 'B', '{noop}b', true), (3, 'C', '{noop}c', true);
 
 -- Map users to roles
 INSERT INTO user_roles (user_id, roles_id) VALUES (1, 1), (2, 2), (3, 2);
