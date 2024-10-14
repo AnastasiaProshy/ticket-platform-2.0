@@ -49,6 +49,11 @@ public class User
 	private String password;
 	
 	// for availability flag
+//	@Formula("( select * " +
+//			 "from user u " +
+//			 "inner join user_roles ur ON u.id = ur.user_id " +
+//			 "inner join role r on ur.roles_id = r.id " +
+//			 "where r.name = 'USER')")
 	@Column(nullable = false)
 	private Boolean available = true;
 	

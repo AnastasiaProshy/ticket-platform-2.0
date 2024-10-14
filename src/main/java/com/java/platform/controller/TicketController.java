@@ -38,7 +38,7 @@ public class TicketController
 	// INDEX TICKET
 				  // authentication catches the username
 	@GetMapping() // make the page appear on the web
-	public  String index (Authentication authentication, Model model, @RequestParam(required = false) String search) 
+	public  String index(Authentication authentication, Model model, @RequestParam(required = false) String search) 
 	{	
 		// get the data to deliver to tickets & insert it into the model
 		
@@ -74,15 +74,16 @@ public class TicketController
 	// CREATE TICKET
 	@GetMapping("/create")
 	public String create(Model model)
-	{
-		//TODO available Agents non users!
+	{		
 		model.addAttribute("ticket", new Ticket());
-		model.addAttribute("agents", userService.findAvailableUsers());
+		model.addAttribute("agents", userService.findFreeAgents());
 		model.addAttribute("categories", categoryService.findAll());
 		
 		return "tickets/create";
 	}
 
+	
+	
 	// STORE TICKET
 	@PostMapping("/create")
 	public String store(@Valid @ModelAttribute("ticket") Ticket formTicket, // recover the form you just filled out as a ticket template
@@ -93,7 +94,7 @@ public class TicketController
 		if (bindingResult.hasErrors())
 		{
 			model.addAttribute("categories", categoryService.findAll());
-			model.addAttribute("agents", userService.findAvailableUsers()); // Restore agents in model, call from create' an expensive operation during error?
+			model.addAttribute("agents", userService.findFreeAgents()); // Restore agents in model, call from create' an expensive operation during error?
 			return "tickets/create";
 		}
 		
@@ -106,6 +107,7 @@ public class TicketController
 			
             return "redirect:/tickets";
 	}	
+	
 	
 	
 	// TICKET STATE

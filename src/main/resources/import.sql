@@ -2,10 +2,10 @@
 INSERT INTO role (id, name) VALUES (1, 'ADMIN'), (2, 'USER');
 
 -- Insert users
-INSERT INTO user (id, username, password, available) VALUES (1, 'A', '{noop}a', true), (2, 'B', '{noop}b', true), (3, 'C', '{noop}c', true);
+INSERT INTO user (id, username, password, available) VALUES (1, 'Nastia', '{noop}nastia', true), (2, 'Vitia', '{noop}vitia', true), (3, 'Sasha', '{noop}sasha', true), (4, 'Pasha', '{noop}pasha', false), (5, 'Shura', '{noop}shura', true);
 
 -- Map users to roles
-INSERT INTO user_roles (user_id, roles_id) VALUES (1, 1), (2, 2), (3, 2);
+INSERT INTO user_roles (user_id, roles_id) VALUES (1, 1), (2, 2), (3, 2), (4, 2), (5, 1);
 
 -- Insert tickets 
 INSERT INTO tickets (id, title, description, status, user_id) VALUES (1, 'Primo', 'Descrizione no.1', 'To Do', 3), (2, 'Secondo', 'Descrizione no.2', 'To Do', 2), (3, 'Terzo', 'Descrizione no.3', 'To Do', 1);

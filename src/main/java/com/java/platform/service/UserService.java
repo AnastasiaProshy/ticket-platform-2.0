@@ -1,6 +1,7 @@
 package com.java.platform.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,19 @@ public class UserService {
 		return userRepository.findAll();
 	}
 	
-	public User create(User user) {
+	public User create(User user) 
+	{
 	    return userRepository.save(user);
 	}
 	
-	public List<User> findAvailableUsers() {
-	    return userRepository.findByAvailableTrue();
+	public List<User> findFreeAgents() 
+	{
+	    return userRepository.findByAvailableAgent();
+	}
+
+	public Optional<User> findByUsername(String username) 
+	{
+		return userRepository.findByUsername(username);
 	}
 	
 }

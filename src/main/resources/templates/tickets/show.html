@@ -9,7 +9,8 @@
 			<div class="col-12">
 				<th:block th:object="${ticket}">
 					<!-- Ticket Title -->
-					<h2 class="py-4 mb-2 text-center">Ticket <strong>'[[*{title}]]'</strong></h2>					
+					<h2 class="py-4 text-center">Ticket <strong>'[[*{title}]]'</strong></h2>		
+					<h6 class="card-title mb-4 text-center">- Agent is [[${ticket.user.username}]] -</h6>			
 					<!-- Alert -->
 					<th:block th:if="${messageAlert != null}">
 					    <div th:replace="~{fragments/fragments :: alert(${typeAlert}, ${messageAlert})}"></div>
@@ -22,7 +23,7 @@
 								<!-- Category -->
 								<span th:if="*{categories.size()} > 0" th:each="category : *{categories}"><strong> - [[${category.name}]]</strong></span>		
 								<!-- Status -->
-								<form th:action="@{/tickets/updateStatus/{id}(id=${ticket.id})}" method="POST" class="d-flex mt-" sec:authorize="hasAuthority('USER')">
+								<form th:action="@{/tickets/updateStatus/{id}(id=${ticket.id})}" method="POST" class="d-flex" sec:authorize="hasAuthority('USER')">
 									<div class="mt-3 mb-3 d-flex col-7 mx-auto">
 										<label for="status" class="form-label"></label>
 										<select name="status" class="form-select" id="status">
@@ -34,18 +35,15 @@
 									</div>									
 								</form>								
 							</div>
-							  <div class="card-body">
-							    <h5 class="card-title">Operator:</h5>
-								<p class="card-text">[[*{description}]]</p>
-								<ul>
-									<li th:each="note: *{notes}">
-										<p>
-											 Date il [[${note.createdDate}]]
-											 Note: [[${note.content}]]
-										</p>
+							  <div class="card-body">							    
+								<h4 class="card-text mt-3 mb-4">[[*{description}]]</h4>
+								<ul >
+									<li th:each="note: *{notes}" class="py-2">
+										<h5>[[${note.content}]]</h5>
+										<p>[[${note.createdDate}]]</p>
 									</li>
 								</ul>	
-								<div class="mt-5 mb-3 d-flex justify-content-between">
+								<div class=" mb-3 d-flex justify-content-between">
 									<a th:href="@{/tickets}" class="btn btn-primary">Back</a>	
 									<a th:href="@{/tickets/{id}/notes/create(id=${ticket.id})}" class="btn btn-warning">Note</a>	
 								</div>						
