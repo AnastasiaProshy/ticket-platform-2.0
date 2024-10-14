@@ -26,10 +26,10 @@ public class Category
 	//@Column(name = "name", nullable = false)
 	private String name;
 	
-	//@ManyToMany(mappedBy = "categories")
+	@ManyToMany(mappedBy = "categories")
 	//@JoinColumn(name = "tickets_id", nullable = false)
 	//@JsonBackReference
-	//private List<Ticket> tickets;
+	private List<Ticket> tickets;
 
 	public Integer getId() {
 		return id;
@@ -47,12 +47,12 @@ public class Category
 		this.name = name;
 	}
 
-//	public List<Ticket> getTickets() {
-//		return tickets;
-//	}
-//
-//	public void setTickets(List<Ticket> tickets) {
-//		this.tickets = tickets;
-//	}
+	public List<Ticket> getTickets() {
+		return tickets;
+	}
+
+	public void setTickets(List<Ticket> tickets) {
+		this.tickets = tickets;
+	}
 	
 }

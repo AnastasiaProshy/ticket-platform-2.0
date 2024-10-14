@@ -14,6 +14,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -55,7 +57,15 @@ public class Ticket
 		 @JsonManagedReference
 		 private List<Note> notes;
 		 
-		
+		 
+		 @ManyToMany(fetch = FetchType.EAGER)
+		 @JoinTable(
+			 name = "categories_ticket",
+			 joinColumns = @JoinColumn(name = "ticket_id"),
+			 inverseJoinColumns = @JoinColumn(name = "category_id")
+			 )
+		 @JsonManagedReference
+		 private List<Category> categories;
 
 		
 		
