@@ -37,11 +37,11 @@ public class User
 	@Column(name = "username", nullable = false)
 	private String username;
 	
-//	@NotNull
-//	@NotEmpty
-//	@Size(min=4,max=255)
-//	@Column(name = "email", nullable = false)
-//	private String email;
+	@NotNull
+	@NotEmpty
+	@Size(min=4,max=255)
+	@Column(name = "email", nullable = false)
+	private String email;
 	
 	@NotNull
 	//@NotEmpty
@@ -77,15 +77,14 @@ public class User
 		this.id = id;
 	}
 
+	public String getEmail() {
+		return email;
+	}
 
-//	public String getEmail() {
-//		return email;
-//	}
-//
-//	public void setEmail(String email) {
-//		this.email = email;
-//	}
-//
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPassword() {
 		return password;
 	}

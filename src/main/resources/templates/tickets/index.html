@@ -7,9 +7,9 @@
 	<main class="container">
 		<!-- Personal Info -->
 		<div>
-			<div class="card col-md-5 mt-4 mb-5" sec:authorize="hasAuthority('USER')">
+			<div class="card col-md-3 mt-4 mb-5" sec:authorize="hasAuthority('USER')">
 			  <div class="card-header">
-			    Agent: <spam sec:authentication="name"></spam>
+			    Agent: <span sec:authentication="name"></span>
 			  </div>
 			  <ul class="list-group list-group-flush">
 			    <li class="list-group-item" >Available: 
@@ -17,7 +17,7 @@
 						
 					</form>
 				</li>
-				<li class="list-group-item" >Email: </li>
+				<li class="list-group-item">Email: <span th:text="${loggedUser.email}"></span></li>
 			  </ul>
 			</div>
 		</div>
@@ -65,7 +65,9 @@
 						<td th:text="${ticket.id}"></td>
 						<td th:text="${ticket.status}"></td>
 						<td th:text="${ticket.title}"></td>
-						<td><span th:each="category : ${ticket.categories}" th:text="${category.name}"></span>
+						<td>
+							<span th:each="category : ${ticket.categories}" th:text="${category.name}"></span>
+						</td>							
 						<td th:text="${ticket.description}"></td>
 						<td th:text="${ticket.user.username}"></td>
 						<td>

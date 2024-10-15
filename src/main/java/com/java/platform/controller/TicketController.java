@@ -69,6 +69,7 @@ public class TicketController
 	    // Add ticket list and username to template
 	    model.addAttribute("tickets", ticketList);
 	    model.addAttribute("username", loggedUser.getUsername());
+	    model.addAttribute("loggedUser", loggedUser);
 	    return "/tickets/index";
 	}
 
