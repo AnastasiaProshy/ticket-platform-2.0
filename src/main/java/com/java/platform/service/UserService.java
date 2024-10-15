@@ -32,7 +32,17 @@ public class UserService {
 
 	public Optional<User> findByUsername(String username) 
 	{
-		return userRepository.findByUsername(username);
+		return userRepository.findByUsernameEquals(username);
 	}
+
+	public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
+	}
+	
+	
+//	public Optional<User> findUser(String agents)
+//	{
+//		return userRepository.findUsers(agents);
+//	}
 	
 }

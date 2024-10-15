@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.java.platform.model.Ticket;
+import com.java.platform.model.User;
 import com.java.platform.repository.TicketRepository;
 
 @Service	// the one who @serves the controller, puts between the controller and repository, so no longer have the repository in controller but in service
@@ -62,6 +63,14 @@ public class TicketService {
 	{
 		return ticketRepository.findById(id);
 	}
+
+	public List<Ticket> findAllByUser(User user) {
+        return ticketRepository.findAllByUser(user);
+    }
+
+    public List<Ticket> findByTitleAndUser(String title, User user) {
+        return ticketRepository.findByTitleContainingAndUser(title, user);
+    }
 
 	
 }

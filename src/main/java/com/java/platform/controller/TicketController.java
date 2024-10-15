@@ -2,6 +2,7 @@ package com.java.platform.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.java.platform.model.Note;
 import com.java.platform.model.Ticket;
+import com.java.platform.model.User;
 import com.java.platform.service.CategoryService;
 import com.java.platform.service.NoteService;
 import com.java.platform.service.TicketService;
@@ -34,31 +36,42 @@ public class TicketController
 	private @Autowired NoteService noteService;
 	private @Autowired CategoryService categoryService;
 	
-	
+
+
 	// INDEX TICKET
-				  // authentication catches the username
 	@GetMapping() // make the page appear on the web
-	public  String index(Authentication authentication, Model model, @RequestParam(required = false) String search) 
-	{	
-		// get the data to deliver to tickets & insert it into the model
-		
-		List<Ticket> ticketList;
-		
-		if (search != null && !search.isEmpty())
-		{
-			model.addAttribute("ticketSearch", search);
-			ticketList = ticketService.findByTitle(search);
-		}
-		else
-		{
-			ticketList = ticketService.findAll();
-		}
-		
-		model.addAttribute("tickets", ticketList);
-		model.addAttribute("username", authentication.getName()); // with tickets pass username of the person who has just authenticated
-		
-		return "/tickets/index";
+	public String index(Authentication authentication, Model model, @RequestParam(required = false) String search) 
+	{   
+	    // Get the user authenticated
+	    Optional<User> agentOptional = userService.findByUsername(authentication.getName());
+	    User loggedUser = agentOptional.get();
+	    
+	    List<Ticket> ticketList;
+
+	    // If the user is admin, show all tickets
+	    if ("Nastia".equalsIgnoreCase(loggedUser.getUsername()) || "Shura".equalsIgnoreCase(loggedUser.getUsername())){
+	        if (search != null && !search.isEmpty()) {
+	            model.addAttribute("ticketSearch", search);
+	            ticketList = ticketService.findByTitle(search); // Retrieve all tickets that match the search title
+	        } else {
+	            ticketList = ticketService.findAll(); // Recover all tickets
+	        }
+	    } else {
+	        // If the user is not admin, show all tickets
+	        if (search != null && !search.isEmpty()) {
+	            model.addAttribute("ticketSearch", search);
+	            ticketList = ticketService.findByTitleAndUser(search, loggedUser); // Filter by title and user
+	        } else {
+	            ticketList = ticketService.findAllByUser(loggedUser); // Retrieve only user tickets
+	        }
+	    }
+	    
+	    // Add ticket list and username to template
+	    model.addAttribute("tickets", ticketList);
+	    model.addAttribute("username", loggedUser.getUsername());
+	    return "/tickets/index";
 	}
+
 
 	
 	// SHOW TICKET
