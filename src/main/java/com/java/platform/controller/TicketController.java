@@ -144,6 +144,35 @@ public class TicketController
 	}
 	
 	
+	
+	@PostMapping("/updateBusy")
+	public String availableUser(Authentication authentication, Model model,
+								@RequestParam("busy") Boolean newState,
+								RedirectAttributes redirectAttributes)
+	{
+		Optional<User> agentOptional = userService.findByUsername(authentication.getName());
+	    User loggedUser = agentOptional.get();
+	    
+	    List<Ticket> ticket = ticketService.findByStatus(loggedUser.getUsername(), "To Do", "In Progress");
+	    
+	    if(ticket.isEmpty() )
+	    {
+	    	loggedUser.setAvailable(newState);
+		    userService.create(loggedUser);
+	       
+	        redirectAttributes.addFlashAttribute("typeAlert", "success");
+	        redirectAttributes.addFlashAttribute("messageAlert", "Your status is updated successfully to busy!");
+		}
+		else 
+		{
+			redirectAttributes.addFlashAttribute("typeAlert", "danger");
+	        redirectAttributes.addFlashAttribute("messageAlert", "You have some ticket to complete first.");	
+		}
+			return "redirect:/tickets";
+		}
+	
+	
+	
 	// DELETE
 	@PostMapping ("/delete/{id}")
 	public String delete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes)
@@ -160,12 +189,16 @@ public class TicketController
 
 	// CREATE NOTE
 	@GetMapping("/{id}/notes/create")
-	public String note(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes)
+	public String note(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes, Authentication authentication)
 	{
+		Optional<User> agentOptional = userService.findByUsername(authentication.getName());
+	    User loggedUser = agentOptional.get();
+	    
 		Ticket ticket = ticketService.getById(id);
 		Note note = new Note(); // Creating a new note
 //		model.addAttribute("ticket", ticketService.getById(id)); // Ticket must be inserted into my model before returning the page. I don't have this note yet, it's new
 		note.setCreatedDate(LocalDate.now()); // Set with today's date
+		note.setUser(loggedUser);
 		note.setTicket(ticket); // manage the transition as a note instead of a ticket. This way, I can use the get and set methods, simplifying the process
 		model.addAttribute("note", note); // has been created as a note so add the element to the model and set to 'note' 
 		return "notes/create";

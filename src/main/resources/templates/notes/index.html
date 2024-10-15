@@ -19,20 +19,20 @@
 				<thead>
 					<tr>
 						<th>#</th>
+						<th>Agent</th>
 						<th>Ticket title</th>
 						<th>Note Date</th>
-						<th>Content</th>
-						<th>Agent</th>
+						<th>Content</th>						
 					</tr>
 				</thead>
 				<tbody>
 					<!-- Iterate over each note -->
 					<tr th:each="note : ${notes}">
 						<td th:text="${note.id}"></td>
+						<td th:text="${note.user.username}"></td>
 						<td th:text="${note.ticket.title}"></td>
 						<td th:text="${note.createdDate}"></td>
-						<td th:text="${note.content}"></td>
-						<td></td>
+						<td th:text="${note.content}"></td>						
 						<!-- <td>
 							 Buttons: Show, Edit 
 							<a class="btn btn-sm btn-success" th:href="@{/notes/{id}(id=${note.id})}">Show</a>	

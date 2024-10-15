@@ -66,6 +66,10 @@ public class User
 	@JsonManagedReference
 	private List<Ticket> tickets;	// created ticket concept to connect to, so User has a ticket he is connected to 
 
+	
+	@OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonManagedReference
+	private List<Note> notes;	// created ticket concept to connect to, so User has a ticket he is connected to 
 
 	
 	

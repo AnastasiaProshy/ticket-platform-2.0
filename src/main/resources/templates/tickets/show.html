@@ -40,7 +40,7 @@
 								<ul >
 									<li th:each="note: *{notes}" class="py-2">
 										<h5>[[${note.content}]]</h5>
-										<p>[[${note.createdDate}]]</p>
+										<p>On [[${note.createdDate}]] by [[${note.user.username}]]</p>
 									</li>
 								</ul>	
 								<div class=" mb-3 d-flex justify-content-between">

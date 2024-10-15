@@ -38,10 +38,11 @@ public class Note
 	@JoinColumn(name = "ticket_id", nullable = false)
 	@JsonBackReference
 	private Ticket ticket;
-	
-//	@ManyToOne
-//	@JoinColumn(name = "user_id", nullable = false)
-//	private User author;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", nullable = false)
+	@JsonBackReference
+	private User user;
 
 	
 	
@@ -61,7 +62,6 @@ public class Note
 		this.content = content;
 	}
 
-
 	public Ticket getTicket() {
 		return ticket;
 	}
@@ -78,13 +78,11 @@ public class Note
 		this.createdDate = createdDate;
 	}
 
+	public User getUser() {
+		return user;
+	}
 
-//	public User getAuthor() {
-//		return author;
-//	}
-//
-//	public void setAuthor(User author) {
-//		this.author = author;
-//	}
-
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

@@ -12,10 +12,27 @@
 			    Agent: <span sec:authentication="name"></span>
 			  </div>
 			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item" >Available: 
-					<form >
-						
-					</form>
+			    <li class="list-group-item" >Available: <span th:text="${loggedUser.available}"></span>
+					<!-- User status update form -->
+					
+					
+					
+					<form th:action="@{/tickets/updateBusy}" method="POST" class="d-flex" >
+						<div class="mt-3 mb-3 d-flex col-7 mx-auto">
+							<label for="busy" class="form-label"></label>
+							<select name="busy" class="form-select-sm" id="busy">
+								<option selected disabled>status</option>
+								<option th:value="1" th:selected="${loggedUser.available == 'true'}">Free</option>
+								<option th:value="0" th:selected="${loggedUser.available == 'false'}">Busy</option>
+							</select>
+							<button type="submit" class="btn btn-sm btn-primary ms-2">Update</button>
+						</div>									
+					</form>	
+					
+					
+					
+					
+								
 				</li>
 				<li class="list-group-item">Email: <span th:text="${loggedUser.email}"></span></li>
 			  </ul>

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.java.platform.model.Ticket;
 import com.java.platform.model.User;
 import com.java.platform.repository.UserRepository;
 
@@ -39,7 +40,12 @@ public class UserService {
         return userRepository.findById(id);
 	}
 	
+
+    public Optional<User> getByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 	
+
 //	public Optional<User> findUser(String agents)
 //	{
 //		return userRepository.findUsers(agents);

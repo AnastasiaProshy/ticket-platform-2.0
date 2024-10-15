@@ -33,6 +33,10 @@ public class TicketService {
 		return ticketRepository.findByTitleContains(searchedText);
 	}
 	
+	public List<Ticket> findByStatus(String user, String status1, String status2)
+	{
+		return ticketRepository.findByStatus(user, status1, status2);
+	}
 	
 	public Ticket getById(Integer id)
 	{
@@ -56,6 +60,7 @@ public class TicketService {
 	{
 		ticketRepository.deleteById(id);
 	}
+	
 	
 	
 	// manage error mechanism

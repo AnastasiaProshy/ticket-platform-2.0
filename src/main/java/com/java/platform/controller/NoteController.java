@@ -30,7 +30,7 @@ public class NoteController
 	}
 	
 	
-//	//STORE NOTE POST-MAPPING CREATE
+	//STORE NOTE POST-MAPPING CREATE
 	@PostMapping("/create")
 	public String store(@Valid @ModelAttribute("note") Note formNote,
 						BindingResult bindingResult,
@@ -46,7 +46,7 @@ public class NoteController
 			noteService.create(formNote);
 			
 			attributes.addFlashAttribute("typeAlert", "success");
-			attributes.addFlashAttribute("messageAlert", "Great news! '" + formNote.getId() + "' has been added successfully");
+			attributes.addFlashAttribute("messageAlert", "Great news! '" + formNote.getContent() + "' has been added successfully");
 			
 			return "redirect:/tickets/" + formNote.getTicket().getId();
 		}	
