@@ -63,7 +63,7 @@ public class Ticket
 			 joinColumns = @JoinColumn(name = "ticket_id"),
 			 inverseJoinColumns = @JoinColumn(name = "category_id")
 			 )
-		 //@JsonManagedReference
+		 @JsonManagedReference
 		 private List<Category> categories;
 
 		

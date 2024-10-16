@@ -63,7 +63,6 @@ public class TicketService {
 		ticketRepository.deleteById(id);
 	}
 	
-
 	// manage error mechanism
 	public Optional<Ticket> findById(Integer id)
 	{
@@ -78,6 +77,16 @@ public class TicketService {
 	
     public List<Ticket> findByTitleAndUser(String title, User user) {
         return ticketRepository.findByTitleContainingAndUser(title, user);
+    }
+
+    
+    public List<Ticket> findByStateApi(String status) {
+        return ticketRepository.findByStatusAllIgnoreCase(status);
+    }
+    
+
+    public List<Ticket> findByCategoryApi(String category) {
+        return ticketRepository.findByCategoryName(category);
     }
 
 	

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,23 +32,22 @@ public class TicketRestController
 	private @Autowired TicketService ticketService;
 	
 	@GetMapping
-	public List<Ticket> index(@RequestParam(name = "word", required = false) String word)
+	public List<Ticket> index(@RequestParam(name = "status", required = false) String status,
+	                          @RequestParam(name = "category", required = false) String category) 
 	{
-		List<Ticket> result;
-		
-		if ( word != null && !word.isEmpty())
-		{
-			// if my keyword is well formed then ask the question with "word"
-			result = ticketService.findAllByTitle(word);
-		} 
-		else
-		{
-			// if it isn't, set a standard index
-			result = ticketService.findAll();
-		}
-		
-		return result;	
+	    if (category != null && !category.isEmpty()) 
+	    {
+	        return ticketService.findByCategoryApi(category);
+	    } 
+	    if (status != null && !status.isEmpty()) 
+	    {
+	        return ticketService.findByStateApi(status);
+	    } else {
+	        return ticketService.findAll();
+	    }
 	}
+
+
 	
 	// In order to wrap events, it allows us to handle the state of the question
 	// such as http and response that we give ourselves

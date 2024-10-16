@@ -35,11 +35,6 @@ public class UserService {
 	{
 		return userRepository.findByUsernameEquals(username);
 	}
-	
-//	public Optional<User> findByTicketStatus(String titleStatus) 
-//	{
-//		return userRepository.findByTicketStatusEquals(titleStatus);
-//	}
 
 	public Optional<User> findById(Integer id) {
         return userRepository.findById(id);
@@ -50,10 +45,9 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 	
-
-//	public Optional<User> findUser(String agents)
-//	{
-//		return userRepository.findUsers(agents);
-//	}
+	public User update(User info)
+	{
+		return userRepository.save(info);
+	}
 	
 }
