@@ -169,8 +169,39 @@ public class TicketController
 	        redirectAttributes.addFlashAttribute("messageAlert", "You have some ticket to complete first.");	
 		}
 			return "redirect:/tickets";
-		}
+	}
 	
+	
+	
+	// EDIT
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") Integer id, Model model)
+	{		
+		model.addAttribute("ticket", ticketService.getById(id));
+		model.addAttribute("agents", userService.findFreeAgents());
+		model.addAttribute("categories", categoryService.findAll());
+		return "/tickets/edit";
+	}
+	
+	@PostMapping("/edit/{id}")
+	public String update(@Valid @ModelAttribute("ticket") Ticket updateFormTicket, 
+	                     BindingResult bindingResult,
+	                     RedirectAttributes attributes,
+	                     Model model) {
+	    if (bindingResult.hasErrors()) {
+	        model.addAttribute("agents", userService.findFreeAgents());
+	        model.addAttribute("categories", categoryService.findAll());
+	        return "tickets/edit";
+	    }
+
+	    ticketService.update(updateFormTicket); 
+	    
+	    attributes.addFlashAttribute("typeAlert", "success");
+	    attributes.addFlashAttribute("messageAlert", "Ticket updated successfully!");
+
+	    return "redirect:/tickets";
+	}
+
 	
 	
 	// DELETE
@@ -196,7 +227,6 @@ public class TicketController
 	    
 		Ticket ticket = ticketService.getById(id);
 		Note note = new Note(); // Creating a new note
-//		model.addAttribute("ticket", ticketService.getById(id)); // Ticket must be inserted into my model before returning the page. I don't have this note yet, it's new
 		note.setCreatedDate(LocalDate.now()); // Set with today's date
 		note.setUser(loggedUser);
 		note.setTicket(ticket); // manage the transition as a note instead of a ticket. This way, I can use the get and set methods, simplifying the process

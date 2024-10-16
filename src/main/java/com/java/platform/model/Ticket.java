@@ -34,12 +34,12 @@ public class Ticket
 		
 		@NotNull
 		@NotEmpty(message = "Title is mandatory")
-		@Size(min=2,max=255, message = "Title must be between 2 and 255 characters")
+		@Size(min=2,max=255, message = "Title must be at least 2 characters")
 		private String title;
 		
 		@NotNull
 		@NotEmpty(message = "Description is mandatory")
-		@Size(min=5,max=255, message = "Size must be between 2 and 255 characters")
+		@Size(min=5,max=255, message = "Size must be at least 5 characters")
 		private String description;
 		
 		@Column(nullable = false)
@@ -53,21 +53,12 @@ public class Ticket
 	    private User user;
 		
 		// у билета есть заметка
-		 @OneToMany(mappedBy = "ticket", cascade = { CascadeType.REMOVE })
-		 @JsonManagedReference
-		 private List<Note> notes;
+		@OneToMany(mappedBy = "ticket", cascade = { CascadeType.REMOVE })
+		@JsonManagedReference
+		private List<Note> notes;
 		 
-		 
-		 public List<Category> getCategories() {
-			return categories;
-		}
-
-		public void setCategories(List<Category> categories) {
-			this.categories = categories;
-		}
-
 		@ManyToMany(fetch = FetchType.EAGER)
-		 @JoinTable(
+		@JoinTable(
 			 name = "categories_ticket",
 			 joinColumns = @JoinColumn(name = "ticket_id"),
 			 inverseJoinColumns = @JoinColumn(name = "category_id")
@@ -76,7 +67,14 @@ public class Ticket
 		 private List<Category> categories;
 
 		
-		
+		public List<Category> getCategories() {
+			return categories;
+		}
+
+		public void setCategories(List<Category> categories) {
+			this.categories = categories;
+		}
+
 		public User getUser() {
 			return user;
 		}

@@ -35,6 +35,11 @@ public class UserService {
 	{
 		return userRepository.findByUsernameEquals(username);
 	}
+	
+//	public Optional<User> findByTicketStatus(String titleStatus) 
+//	{
+//		return userRepository.findByTicketStatusEquals(titleStatus);
+//	}
 
 	public Optional<User> findById(Integer id) {
         return userRepository.findById(id);

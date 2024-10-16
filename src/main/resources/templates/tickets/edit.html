@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/fragments :: head}"></head>
+<body>
+	<!-- Header -->
+	<header th:insert="~{fragments/navbar :: navbar('tickets/edit')}"></header>		
+	<main class="container">			
+		<div class="row">
+			<div class="col-12">
+				<h3 class="py-4 mb-2 text-center"><strong>Update Ticket</strong></h3>
+				<div class="row justify-content-center">
+					<div class="col-md-6 col-lg-4">
+						<form id="ticket-form" th:action="@{/tickets/edit/{id}(id=${ticket.id})}" method="POST" th:object="${ticket}">
+							<!-- Title -->
+							<div class="mb-3">
+							  <label for="title" class="form-label">Title</label>
+							  <input type="text" class="form-control" id="title" placeholder="Enter ticket title"
+							  th:field="*{title}" th:errorClass="is-invalid" aria-describedby="titleHelp">
+							  <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+							  	<ul>
+							  		<li th:each="err : ${#fields.errors('title')}" th:text="${err}"></li>
+							  	</ul>
+							  </div>
+							  <div id="titleHelp" class="form-text">Please enter a descriptive title</div>										 
+							</div>							
+							<!-- Agent -->
+							<div class="form-group mb-3">
+							    <label for="agent">Choose agent</label>
+							    <select th:field="*{user}" class="form-control" required 
+										th:errorClass="is-invalid" aria-describedby="descriptionHelp">
+							        <option value="" disabled selected>Choose an agent</option>
+							        <option th:each="agent : ${agents}" 
+							                th:value="${agent.id}" 
+							                th:text="${agent.username}">Agent</option>
+							    </select>
+								<div th:if="${#fields.hasErrors('user')}" class="invalid-feedback">
+									<ul>
+										<li th:each="err : ${#fields.errors('user')}" th:text="${err}"></li>
+									</ul>
+								</div>
+								<div id="descriptionHelp" class="form-text">The assigned agent is mandatory</div>										 
+							</div>
+							<!-- Description -->
+							<div class="mb-3">
+							  <label for="description" class="form-label">Description</label>
+							  <textarea class="form-control" id="description" rows="4" placeholder="Type in some info" 
+							   			th:field="*{description}" th:errorClass="is-invalid" aria-describedby="descriptionHelp"></textarea>
+								<div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+									<ul>
+										<li th:each="err : ${#fields.errors('description')}" th:text="${err}"></li>
+									</ul>
+								</div>
+								<div id="descriptionHelp" class="form-text">Provide details about the ticket</div>										 
+							</div>
+							<!-- Categories -->
+							<div th:each="category : ${categories}" class="form-check mb-3" role="group" aria-label="Basic checkbox toggle button group">
+							    <input type="checkbox" class="form-check-input" autocomplete="off" 
+							           th:value="${category.id}" th:id="|category_${category.id}|" th:field="${ticket.categories}">
+							    <label class="form-check-label" th:for="|category_${category.id}|" th:text="${category.name}"></label>
+							</div>
+							<!-- Buttons -->
+							<div class="pt-4 d-flex justify-content-between">
+								<input type="submit" class="btn btn-primary" value="edit">
+								<input type="reset" class="btn btn-warning" value="Reset">
+							</div>
+							
+						</form>
+					</div>								
+				</div>
+			</div>
+		</div>
+	</main>
+	<footer th:replace="~{fragments/fragments :: footer}"></footer>	
+	<th:block th:replace="~{fragments/fragments :: scripts}"></th:block>
+</body>
+</html>

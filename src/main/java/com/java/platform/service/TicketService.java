@@ -33,10 +33,12 @@ public class TicketService {
 		return ticketRepository.findByTitleContains(searchedText);
 	}
 	
+	
 	public List<Ticket> findByStatus(String user, String status1, String status2)
 	{
 		return ticketRepository.findByStatus(user, status1, status2);
 	}
+	
 	
 	public Ticket getById(Integer id)
 	{
@@ -61,18 +63,19 @@ public class TicketService {
 		ticketRepository.deleteById(id);
 	}
 	
-	
-	
+
 	// manage error mechanism
 	public Optional<Ticket> findById(Integer id)
 	{
 		return ticketRepository.findById(id);
 	}
 
+	
 	public List<Ticket> findAllByUser(User user) {
         return ticketRepository.findAllByUser(user);
     }
 
+	
     public List<Ticket> findByTitleAndUser(String title, User user) {
         return ticketRepository.findByTitleContainingAndUser(title, user);
     }

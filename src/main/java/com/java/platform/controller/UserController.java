@@ -1,15 +1,24 @@
 package com.java.platform.controller;
 
+import java.security.Principal;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.java.platform.model.Ticket;
 import com.java.platform.model.User;
+import com.java.platform.service.TicketService;
 import com.java.platform.service.UserService;
 
 import jakarta.validation.Valid;
@@ -18,32 +27,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/agents")
 public class UserController 
 {
-    private @Autowired UserService userService;
-
-    
-    // LIST
-//    @GetMapping()
-//    public String index(Model model) 
-//    {
-//        model.addAttribute("agents", userService.findAll());
-//        return "agents/index";
-//    }
-
-    
-    // CREATE
-//    @GetMapping("/create")
-//    public String create(Model model) {
-//        model.addAttribute("user", new User());
-//        return "agents/create"; // nome della vista
-//    }
-//
-//    @PostMapping("/create")
-//    public String store(@Valid @ModelAttribute("user") User user, 
-//    						BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "agents/create"; 
-//        }
-//        userService.create(user);
-//        return "redirect:/agents"; 
-//    }
+   
 }
+
+
+
+
